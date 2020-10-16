@@ -1,68 +1,73 @@
 ﻿using System;
+
 namespace CSharp_lab2
 {
-   public class Teacher : IPerson
-   {
-      public string LastName { get; }
-      public string FirstName { get; }
-      public string MidName { get; }
-      public DateTime Date { get; }
-      public int Age { get; }
-      public string Cathedra { get; }
-      public byte Exp { get; }
-      public Positions Position { get; }
+    public class Teacher : IPerson
+    {
+        public string LastName { get; }
+        public string Name { get; }
+        public string Patronymic { get; }
+        public DateTime Date { get; }
+        public int Age
+        {
+            get
+            {
+                int age = DateTime.Now.Year - Date.Year;
 
+                if (DateTime.Now.Month > Date.Month)
+                    return age;
+                else
+                    return DateTime.Now.Date < Date.Date ? age - 1 : age;
+            }
+        }
+        public string Faculty { get; }
+        public int Experience { get; }
+        public Positions Position { get; }
 
+        public Teacher(string lastName, string name, string patronymic, DateTime date,
+                       string faculty, int experience, Positions position)
+        {
+            LastName = lastName;
+            Name = name;
+            Patronymic = patronymic;
+            Date = date;
+            Faculty = faculty;
+            Experience = experience;
+            Position = position;
+        }
 
-      public Teacher(string lName, string fName, string mName, DateTime date,
-         string cathedra, byte exp, Positions position)
-      {
-         this.LastName = lName;
-         this.FirstName = fName;
-         this.MidName = mName;
-         this.Date = date;
-         this.Age = GetAge(date);
-         this.Cathedra = cathedra;
-         this.Exp = exp;
-         this.Position = position;
+        public static Teacher Parse(string inputStr)
+        {
+            var splittedStr = inputStr.Split(' ');
 
-      }
+            var lastName = splittedStr[0];
+            var name = splittedStr[1];
+            var patronymic = splittedStr[2];
+            var date = DateTime.Parse(splittedStr[3]);
+            var faculty = splittedStr[4];
+            var experience = int.Parse(splittedStr[5]);
+			var position = (Positions)Enum.Parse(typeof(Positions), splittedStr[6]);
 
-      private int GetAge(DateTime birthDate)
-      {
-         try
-         {
-            int age = DateTime.Now.Year - birthDate.Year;
+            var teacher = new Teacher(lastName, name, patronymic, date, faculty, experience, position);
+            return teacher;
+        }
 
-            if (DateTime.Now.Month > birthDate.Month)
-               return Convert.ToByte(age);
-            else
-               return Convert.ToByte(DateTime.Now.Date < birthDate.Date ?
-                  age - 1 : age);
-         }
+        public override string ToString()
+        {
+            return $"Teacher: {LastName} {Name} {Patronymic}, age: {Age}, faculty {Faculty}" +
+                   $" experience: {Experience}, position: {Position}";
+        }
+    }
 
-         catch (OverflowException)
-         {
-            Console.WriteLine("Возраст больше 255 или меньше 0");
-            throw;
-         }
-      }
-
-      public string FormString()
-      {
-         throw new NotImplementedException();
-      }
-   }
-
-   public enum Positions
-   {
-      professor,
-      associateProfessor,
-      assistantProfessor,
-      masterInstructor,
-      seniorInstructor,
-      instructor,
-      lecturer,
-      adjunctProfessor
-   }
+    public enum Positions
+    {
+        professor,
+        associateProfessor,
+        assistantProfessor,
+        masterInstructor,
+        seniorInstructor,
+        instructor,
+        lecturer,
+        adjunctProfessor
+    }
 }

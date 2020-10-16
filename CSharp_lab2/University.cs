@@ -1,38 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharp_lab2
 {
-	public class University : IUniversity
-	{
-		public University()
-		{
-		}
+    public class University : IUniversity
+    {
+        public IEnumerable<IPerson> Persons => _people.OrderBy((x) => x.LastName);
 
-      public IEnumerable<IPerson> Persons => throw new NotImplementedException();
+        public IEnumerable<Student> Students =>
+            from person in Persons
+            where person is Student
+            orderby person.LastName
+            select person as Student;
 
-      public IEnumerable<Student> Students => throw new NotImplementedException();
+        public IEnumerable<Teacher> Teachers =>
+            from person in Persons
+            where person is Teacher
+            orderby person.LastName
+            select person as Teacher;
 
-      public IEnumerable<Teacher> Teachers => throw new NotImplementedException();
+        public void Add(IPerson person)
+        {
+            _people.Add(person);
+        }
 
-      public void Add(IPerson person)
-      {
-         throw new NotImplementedException();
-      }
+        public IEnumerable<Student> FindByAvgPoint(float avgPoint) =>
+            from student in Students
+            where student.AvgPoint >= avgPoint
+            orderby student.AvgPoint
+            select student;
 
-      public IEnumerable<Student> FindByAvrPoint(float avrPoint)
-      {
-         throw new NotImplementedException();
-      }
+        public IEnumerable<IPerson> FindByLastName(string lastName) =>
+            from person in Persons
+            where person.LastName == lastName
+            select person;
 
-      public IEnumerable<IPerson> FindByLastName(string lastName)
-      {
-         throw new NotImplementedException();
-      }
+        public void Remove(IPerson person)
+        {
+            _people.Remove(person);
+        }
 
-      public void Remove(IPerson person)
-      {
-         throw new NotImplementedException();
-      }
-   }
+        private List<IPerson> _people = new List<IPerson>();
+    }
 }

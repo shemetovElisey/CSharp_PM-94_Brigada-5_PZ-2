@@ -1,55 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CSharp_lab2
 {
-   public class Student : IPerson
-   {
-      public string LastName { get; }
-      public string FirstName { get; }
-      public string MidName { get; }
-      public DateTime Date { get; }
-      public int Age { get; }
-      public byte Course { get; }
-      public byte Group { get; }
-      public double Avg { get; }
+    public class Student : IPerson
+    {
 
-      public Student(string lName, string fName, string mName, DateTime date, byte course, byte group, List<int> avg)
-      {
-         this.LastName = lName;
-         this.FirstName = fName;
-         this.MidName = mName;
-         this.Date = date;
-         this.Age = GetAge(date);
-         this.Group = group;
-         this.Course = course;
-         this.Avg = avg.Average();
-      }
+        public string LastName { get; }
+        public string Name { get; }
+        public string Patronymic { get; }
+        public DateTime Date { get; }
+        public int Age
+        {
+            get
+            {
+                int age = DateTime.Now.Year - Date.Year;
 
-      private int GetAge(DateTime birthDate)
-      {
-         try
-         {
-            int age = DateTime.Now.Year - birthDate.Year;
+                if (DateTime.Now.Month > Date.Month)
+                    return age;
+                else
+                    return DateTime.Now.Date < Date.Date ? age - 1 : age;
+            }
+        }
+        public int Course { get; }
+        public int Group { get; }
+        public float AvgPoint { get; }
 
-            if (DateTime.Now.Month > birthDate.Month)
-               return Convert.ToByte(age);
-            else
-               return Convert.ToByte(DateTime.Now.Date < birthDate.Date ?
-                  age - 1 : age);
-         }
+        public Student(string lastName, string name, string patronymic, DateTime date,
+                       int course, int group, float avgPoint)
+        {
+            LastName = lastName;
+            Name = name;
+            Patronymic = patronymic;
+            Date = date;
+            Group = group;
+            Course = course;
+            AvgPoint = avgPoint;
+        }
 
-         catch (OverflowException)
-         {
-            Console.WriteLine("Возраст больше 255 или меньше 0");
-            throw;
-         }
-      }
+        public static Student Parse(string inputStr)
+        {
+            var splittedStr = inputStr.Split(' ');
 
-      public string FormString()
-      {
-         Console.WriteLine($"Student: {LastName, -9}{FirstName, -9}{MidName, -9}{Age, -5}{Course, -5}{Group, -5}{Avg, -5}");
-      }
-   }
+            var lastName = splittedStr[0];
+            var name = splittedStr[1];
+            var patronymic = splittedStr[2];
+            var date = DateTime.Parse(splittedStr[3]);
+            var course = int.Parse(splittedStr[4]);
+            var group = int.Parse(splittedStr[5]);
+            var avgPoint = float.Parse(splittedStr[6]);
+
+            var student = new Student(lastName, name, patronymic, date, course, group,
+                                      avgPoint);
+            return student;
+        }
+
+        public override string ToString()
+        {
+            return $"Student: {LastName} {Name} {Patronymic}, age: {Age}, course: {Course}" +
+                   $" group: {Group}, average point: {AvgPoint}";
+        }
+    }
 }
