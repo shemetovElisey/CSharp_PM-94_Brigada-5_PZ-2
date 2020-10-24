@@ -54,20 +54,17 @@ namespace CSharp_lab2
 
         public override string ToString()
         {
-            return $"Teacher: {LastName} {Name} {Patronymic}, age: {Age}, faculty {Faculty}" +
-                   $" experience: {Experience}, position: {Position}";
+            return $"Преподаватель: {LastName} {Name} {Patronymic}, возраст: {Age}, факультет: {Faculty}, " +
+                   $"опыт работы: {Experience}, должность: {Position}";
         }
     }
 
     public enum Positions
     {
-        professor,
-        associateProfessor,
-        assistantProfessor,
-        masterInstructor,
-        seniorInstructor,
-        instructor,
-        lecturer,
-        adjunctProfessor
+        профессор,
+        доцент,
+        научныйСотрудник,
+        старшийНаучныйСотрудник,
+        лектор
     }
 }

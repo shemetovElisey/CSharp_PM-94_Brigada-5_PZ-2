@@ -56,8 +56,8 @@ namespace CSharp_lab2
 
         public override string ToString()
         {
-            return $"Student: {LastName} {Name} {Patronymic}, age: {Age}, course: {Course}" +
-                   $" group: {Group}, average point: {AvgPoint}";
+            return $"Студент: {LastName} {Name} {Patronymic}, возраст: {Age}, курс: {Course}, " +
+                   $"группа: {Group}, средний балл: {AvgPoint}";
         }
     }
 }

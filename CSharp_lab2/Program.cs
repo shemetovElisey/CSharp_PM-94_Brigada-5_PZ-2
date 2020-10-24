@@ -14,16 +14,16 @@ namespace CSharp_lab2
 
             while (true)
             {
-                Console.WriteLine("Please press necessart key " +
-                                  "to execute the command");
-                Console.WriteLine("0 - Exit");
-                Console.WriteLine("1 - Print all the students");
-                Console.WriteLine("2 - Print all the teacher");
-                Console.WriteLine("3 - Print all the persons");
-                Console.WriteLine("4 - Find by last name");
-                Console.WriteLine("5 - Find by average point");
-                Console.WriteLine("6 - Delete the user");
-                Console.WriteLine("7 - Add the user");
+                Console.WriteLine("Введите необходимую клавишу " +
+                                  "чтобы исполнить команду");
+                Console.WriteLine("0 - Выход");
+                Console.WriteLine("1 - Вывести информацию о всех студентов");
+                Console.WriteLine("2 - Вывести информацию о всех преподавателях");
+                Console.WriteLine("3 - Вывести информацию о всех людях");
+                Console.WriteLine("4 - Найти по фамилии");
+                Console.WriteLine("5 - Найти по среднему баллу");
+                Console.WriteLine("6 - Удалить пользователя");
+                Console.WriteLine("7 - Добавить пользователя");
 
                 int input = int.Parse(Console.ReadLine());
 
@@ -52,7 +52,7 @@ namespace CSharp_lab2
                         }
                         break;
                     case 4:
-                        Console.WriteLine("Enter the last name: ");
+                        Console.WriteLine("Введите фамилию: ");
                         var lastName = Console.ReadLine();
                         foreach (var person in university.FindByLastName(lastName))
                         {
@@ -60,7 +60,7 @@ namespace CSharp_lab2
                         }
                         break;
                     case 5:
-                        Console.WriteLine("Enter the average point: ");
+                        Console.WriteLine("Введите средний балл: ");
                         var avgPoint = float.Parse(Console.ReadLine());
                         foreach (var student in university.FindByAvgPoint(avgPoint))
                         {
@@ -68,14 +68,14 @@ namespace CSharp_lab2
                         }
                         break;
                     case 6:
-                        Console.WriteLine("Enter the last name: ");
+                        Console.WriteLine("Введите фамилию: ");
                         lastName = Console.ReadLine();
-                        Console.WriteLine("Enter the name: ");
+                        Console.WriteLine("Введите имя: ");
                         var name = Console.ReadLine();
-                        Console.WriteLine("Is this a student? yes or no");
+                        Console.WriteLine("Это студент? Да или нет");
                         var isStudentInput = Console.ReadLine();
                         IOrderedEnumerable<IPerson> personList;
-                        if (isStudentInput == "yes")
+                        if (isStudentInput == "да" || isStudentInput == "Да")
                         {
                             personList = from student in university.Students
                                          where student.Name == name
@@ -97,23 +97,23 @@ namespace CSharp_lab2
                         }
                         break;
                     case 7:
-                        Console.WriteLine("Is this a student? yes or no");
+                        Console.WriteLine("Это студент? Да или нет");
                         isStudentInput = Console.ReadLine();
-                        if (isStudentInput == "yes")
+                        if (isStudentInput == "да" || isStudentInput == "Да")
                         {
-                            Console.WriteLine("Enter the last name: ");
+                            Console.WriteLine("Введите фамилию: ");
                             lastName = Console.ReadLine();
-                            Console.WriteLine("Enter the name: ");
+                            Console.WriteLine("Введите имя: ");
                             name = Console.ReadLine();
-                            Console.WriteLine("Enter the patronymic: ");
+                            Console.WriteLine("Введите отчество: ");
                             var patronymic = Console.ReadLine();
-                            Console.WriteLine("Enter the birth date: ");
+                            Console.WriteLine("Введите дату рождения: ");
                             var date = DateTime.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the course: ");
+                            Console.WriteLine("Введите курс: ");
                             var course = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the group: ");
+                            Console.WriteLine("Введите группу: ");
                             var group = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the average point: ");
+                            Console.WriteLine("Введите средний балл: ");
                             avgPoint = float.Parse(Console.ReadLine());
 
                             university.Add(new Student(lastName, name, patronymic,
@@ -121,19 +121,19 @@ namespace CSharp_lab2
                         }
 						else
 						{
-                            Console.WriteLine("Enter the last name: ");
+                            Console.WriteLine("Введите фамилию: ");
                             lastName = Console.ReadLine();
-                            Console.WriteLine("Enter the name: ");
+                            Console.WriteLine("Введите имя: ");
                             name = Console.ReadLine();
-                            Console.WriteLine("Enter the patronymic: ");
+                            Console.WriteLine("Введите отчество: ");
                             var patronymic = Console.ReadLine();
-                            Console.WriteLine("Enter the birth date: ");
+                            Console.WriteLine("Введите дату рождения: ");
                             var date = DateTime.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the faculty: ");
+                            Console.WriteLine("Введите факультет: ");
                             var faculty = Console.ReadLine();
-                            Console.WriteLine("Enter the experience: ");
+                            Console.WriteLine("Введите опыт работы: ");
                             var experience = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the position: ");
+                            Console.WriteLine("Введите должность: ");
                             var position = (Positions)Enum.Parse(typeof(Positions), Console.ReadLine());
 
                             university.Add(new Teacher(lastName, name, patronymic,
