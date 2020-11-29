@@ -17,7 +17,7 @@ namespace CSharp_lab2
                 Console.WriteLine("Введите необходимую клавишу " +
                                   "чтобы исполнить команду");
                 Console.WriteLine("0 - Выход");
-                Console.WriteLine("1 - Вывести информацию о всех студентов");
+                Console.WriteLine("1 - Вывести информацию о всех студентах");
                 Console.WriteLine("2 - Вывести информацию о всех преподавателях");
                 Console.WriteLine("3 - Вывести информацию о всех людях");
                 Console.WriteLine("4 - Найти по фамилии");
@@ -72,10 +72,11 @@ namespace CSharp_lab2
                         lastName = Console.ReadLine();
                         Console.WriteLine("Введите имя: ");
                         var name = Console.ReadLine();
-                        Console.WriteLine("Это студент? Да или нет");
+
+                        Console.WriteLine("Это студент? 1 - если да, 2 - если нет");
                         var isStudentInput = Console.ReadLine();
                         IOrderedEnumerable<IPerson> personList;
-                        if (isStudentInput == "да" || isStudentInput == "Да")
+                        if (isStudentInput == "1")
                         {
                             personList = from student in university.Students
                                          where student.Name == name
@@ -97,9 +98,9 @@ namespace CSharp_lab2
                         }
                         break;
                     case 7:
-                        Console.WriteLine("Это студент? Да или нет");
+                        Console.WriteLine("Это студент? 1 - если да, 2 - если нет");
                         isStudentInput = Console.ReadLine();
-                        if (isStudentInput == "да" || isStudentInput == "Да")
+                        if (isStudentInput == "1")
                         {
                             Console.WriteLine("Введите фамилию: ");
                             lastName = Console.ReadLine();
@@ -134,7 +135,8 @@ namespace CSharp_lab2
                             Console.WriteLine("Введите опыт работы: ");
                             var experience = int.Parse(Console.ReadLine());
                             Console.WriteLine("Введите должность: ");
-                            var position = (Positions)Enum.Parse(typeof(Positions), Console.ReadLine());
+                            var position = (Positions)Enum.Parse(typeof(Positions),
+                                                                 Console.ReadLine());
 
                             university.Add(new Teacher(lastName, name, patronymic,
                                                        date, faculty, experience, 

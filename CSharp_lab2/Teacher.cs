@@ -8,18 +8,7 @@ namespace CSharp_lab2
         public string Name { get; }
         public string Patronymic { get; }
         public DateTime Date { get; }
-        public int Age
-        {
-            get
-            {
-                int age = DateTime.Now.Year - Date.Year;
-
-                if (DateTime.Now.Month > Date.Month)
-                    return age;
-                else
-                    return DateTime.Now.Date < Date.Date ? age - 1 : age;
-            }
-        }
+        public int Age;
         public string Faculty { get; }
         public int Experience { get; }
         public Positions Position { get; }
