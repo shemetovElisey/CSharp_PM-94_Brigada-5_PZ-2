@@ -9,7 +9,6 @@ namespace CSharp_lab2
         static void Main(string[] args)
         {
             System.Console.OutputEncoding = System.Text.Encoding.UTF8;
-            System.Console.InputEncoding = System.Text.Encoding.Unicode;
 
             var university = new University();
             var flag = true;
@@ -72,6 +71,7 @@ namespace CSharp_lab2
                     case 6:
                         Console.WriteLine("Введите фамилию: ");
                         lastName = Console.ReadLine();
+                        
                         Console.WriteLine("Введите имя: ");
                         var name = Console.ReadLine();
 
