@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace CSharp_lab2
 {
-    class Program
+	partial class Program
     {
         static void Main(string[] args)
         {
             System.Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             var university = new University();
-            var flag = true;
+            var done = false;
 
-            while (flag)
+            while (!done)
             {
                 Console.WriteLine("Введите необходимую клавишу " +
                                   "чтобы исполнить команду");
@@ -26,11 +26,11 @@ namespace CSharp_lab2
                 Console.WriteLine("6 - Удалить пользователя");
                 Console.WriteLine("7 - Добавить пользователя");
 
-                int input = int.Parse(Console.ReadLine());
+                Command input = (Command) Enum.Parse(typeof(Command), Console.ReadLine());
 
                 switch (input)
                 {
-                    case 1:
+                    case Command.getStudent:
                         if (university.Students.Any())
                             foreach (var student in university.Students)
                                 Console.WriteLine(student);
@@ -38,7 +38,7 @@ namespace CSharp_lab2
                             Console.WriteLine("Список студентов пуст");
                         break;
 
-                    case 2:
+                    case Command.getTeacher:
                         if (university.Teachers.Any())
                             foreach (var teacher in university.Teachers)
                                 Console.WriteLine(teacher);
@@ -46,7 +46,7 @@ namespace CSharp_lab2
                             Console.WriteLine("Список препадователей пуст");
                         break;
 
-                    case 3:
+                    case Command.getAll:
                         if (university.Persons.Any())
                             foreach (var person in university.Persons)
                                 Console.WriteLine(person);
@@ -54,21 +54,21 @@ namespace CSharp_lab2
                             Console.WriteLine("Список людей пуст");
                         break;
 
-                    case 4:
+                    case Command.findByLastName:
                         Console.WriteLine("Введите фамилию: ");
                         var lastName = Console.ReadLine();
                         foreach (var person in university.FindByLastName(lastName))
                             Console.WriteLine(person.ToString());
                         break;
 
-                    case 5:
+                    case Command.findByAvgPoint:
                         Console.WriteLine("Введите средний балл: ");
                         var avgPoint = float.Parse(Console.ReadLine());
                         foreach (var student in university.FindByAvgPoint(avgPoint))
                             Console.WriteLine(student.ToString());
                         break;
 
-                    case 6:
+                    case Command.deletePerson:
                         Console.WriteLine("Введите фамилию: ");
                         lastName = Console.ReadLine();
                         
@@ -92,11 +92,17 @@ namespace CSharp_lab2
                                          orderby teacher.LastName
                                          select teacher;
 
-                        foreach (var person in personList)
-                            university.Remove(person);
+                        if (!personList.Any())
+                        {
+                            Console.WriteLine("Такой человек отсутствует");
+                            break;
+                        }
+                        else
+                            foreach (var person in personList)
+                                university.Remove(person);
                         break;
 
-                    case 7:
+                    case Command.addPerson:
                         Console.WriteLine("Это студент? 1 - если да, 2 - если нет");
                         isStudentInput = Console.ReadLine();
                         
@@ -145,7 +151,7 @@ namespace CSharp_lab2
                         break;
 
                     default:
-                        flag = false;
+                        done = true;
                         break;
                 }
             }
